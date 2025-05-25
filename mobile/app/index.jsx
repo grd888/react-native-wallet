@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <View>
       <Text style={{ color: COLORS.text }}>
-        Edit app/index.tsx to edit this page.
+        Edit app/index.tsx to edit this screen.
       </Text>
     </View>
   );
