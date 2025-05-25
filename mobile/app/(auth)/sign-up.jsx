@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "@/assets/styles/auth.styles";
 import { COLORS } from "@/constants/colors";
@@ -35,9 +35,11 @@ export default function SignUpScreen() {
       // and capture OTP code
       setPendingVerification(true);
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2));
+      if (err.errors?.[0]?.code === "form_identifier_exists") {
+        setError("Email already in use");
+      } else {
+        setError("Something went wrong");
+      }
     }
   };
 
